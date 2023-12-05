@@ -1,4 +1,5 @@
 import { createTRPCRouter } from "@poku/server/api/trpc";
+import { pokemonRouter } from "@poku/server/api/routers/pokemon";
 
 /**
  * This is the primary router for your server.
@@ -6,7 +7,7 @@ import { createTRPCRouter } from "@poku/server/api/trpc";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  // TODO: Add new router here
+  pokemon: pokemonRouter,
 });
 
 // export type definition of API

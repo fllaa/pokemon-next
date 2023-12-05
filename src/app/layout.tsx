@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
 
 import { TRPCReactProvider } from "@poku/trpc/react";
+import SimpleHeader from "@poku/components/header/simple-header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,8 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
+      <body
+        className={`container font-sans ${inter.variable} overflow-x-hidden`}
+      >
         <TRPCReactProvider cookies={cookies().toString()}>
+          <SimpleHeader />
           {children}
         </TRPCReactProvider>
       </body>

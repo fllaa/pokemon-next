@@ -9,6 +9,7 @@
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import Pokedex from "pokedex-promise-v2";
 
 /**
  * 1. CONTEXT
@@ -23,8 +24,10 @@ import { ZodError } from "zod";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const P = new Pokedex();
   return {
     ...opts,
+    P,
   };
 };
 
