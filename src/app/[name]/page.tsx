@@ -1,4 +1,5 @@
 import React from "react";
+import { unstable_cache } from "next/cache";
 
 import { api } from "@poku/trpc/server";
 import DefaultTitle from "@poku/components/title/default-title";
@@ -14,7 +15,10 @@ interface Params {
 export default async function DetailPage({
   params,
 }: Readonly<{ params: Params }>) {
-  const data = await api.pokemon.getPokemonByName.query(params.name);
+  const data = await unstable_cache(
+    async () => api.pokemon.getPokemonByName.query(params.name),
+    ["pokemon", params.name],
+  )();
   return (
     <>
       <section className={"container relative overflow-x-hidden pb-96 pt-24"}>
