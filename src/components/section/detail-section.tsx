@@ -25,7 +25,7 @@ export default function DetailSection({ data }: Readonly<DetailSectionProps>) {
       animate="animate"
       viewport={{ once: true }}
       variants={sectionVariants}
-      className="fixed bottom-0 mb-[-12rem] w-screen rounded-t-[2rem] bg-white pb-48"
+      className="fixed inset-x-0 bottom-0 mx-auto mb-[-12rem] w-screen max-w-xl rounded-t-[2rem] bg-white pb-48"
     >
       <div className="mt-[-10rem] flex flex-col items-center">
         {imageSrc && (

@@ -8,7 +8,7 @@ export default async function HomePage() {
     limit: 25,
   });
   return (
-    <main className="container mt-24 flex flex-col items-stretch gap-4 md:mt-8 md:flex-row md:items-center lg:gap-8">
+    <main className="container mt-24 gap-4 lg:gap-8">
       <DefaultTitle className="my-8 flex-1 flex-grow-0">Pokedex</DefaultTitle>
       <HomeGrid initialData={data} />
     </main>
