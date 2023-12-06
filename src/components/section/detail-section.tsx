@@ -3,16 +3,12 @@
 import React from "react";
 import Image from "next/image";
 import { type Variants, motion } from "framer-motion";
-import { IoFemale, IoMale } from "react-icons/io5";
 import type { Pokemon, PokemonSpecies } from "pokedex-promise-v2";
 
+import AboutSection from "@poku/components/section/about-section";
+import BaseStatsSection from "@poku/components/section/base-stats-section";
 import LineTabs from "@poku/components/tab/line-tab";
-import {
-  parseHeightFromMillimeters,
-  parseWeightFromHectograms,
-  titleCase,
-} from "@poku/utils/string";
-import { parseGenderRatioToPercentage } from "@poku/utils/pokemon";
+import { titleCase } from "@poku/utils/string";
 
 export interface DetailSectionProps {
   data: Pokemon & {
@@ -48,7 +44,7 @@ export default function DetailSection({ data }: Readonly<DetailSectionProps>) {
             {({ activeTab }) => {
               const sectionTabs = {
                 About: <AboutSection data={data} />,
-                "Base Stats": <div>Base Stats</div>,
+                "Base Stats": <BaseStatsSection data={data} />,
                 Evolution: <div>Evolution</div>,
                 Moves: <div>Moves</div>,
               };
@@ -70,13 +66,21 @@ export interface InfoItemProps {
   value: React.ReactNode;
 }
 
-const InfoItem = ({ title, value }: Readonly<InfoItemProps>) => {
+export const InfoItem = ({ title, value }: Readonly<InfoItemProps>) => {
   return (
     <>
-      <h6 className="col-span-2 text-gray-600">{title}</h6>
-      <span className="col-span-3 font-semibold text-gray-800">
+      <motion.h6
+        variants={primaryVariants}
+        className="col-span-2 text-gray-600"
+      >
+        {title}
+      </motion.h6>
+      <motion.span
+        variants={primaryVariants}
+        className="col-span-3 font-semibold text-gray-800"
+      >
         {typeof value === "string" ? titleCase(value) : value}
-      </span>
+      </motion.span>
     </>
   );
 };
@@ -86,58 +90,6 @@ export interface SubSectionProps {
     speciesData: PokemonSpecies;
   };
 }
-
-const AboutSection = ({ data }: Readonly<SubSectionProps>) => {
-  const { male, female } = parseGenderRatioToPercentage(
-    data.speciesData.gender_rate,
-  );
-  return (
-    <div className="grid grid-cols-5 gap-3">
-      <InfoItem title="Species" value={data.species.name} />
-      <InfoItem
-        title="Height"
-        value={parseHeightFromMillimeters(data.height)}
-      />
-      <InfoItem title="Weight" value={parseWeightFromHectograms(data.weight)} />
-      <InfoItem
-        title="Abilities"
-        value={data.abilities.map(({ ability }) => ability.name).join(", ")}
-      />
-      <div className="col-span-5">
-        <h3 className="mt-4 text-2xl font-bold text-black">Breeding</h3>
-      </div>
-      <InfoItem
-        title="Gender"
-        value={
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <span className="text-blue-500">
-                <IoMale />
-              </span>
-              <span>{male}%</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-red-500">
-                <IoFemale />
-              </span>
-              <span>{female}%</span>
-            </div>
-          </div>
-        }
-      />
-      <InfoItem
-        title="Egg Groups"
-        value={data.speciesData.egg_groups
-          .map((eggGroup) => eggGroup.name)
-          .join(", ")}
-      />
-      <InfoItem
-        title="Egg Cycle"
-        value={data.types[0]?.type.name ?? "Unknown"}
-      />
-    </div>
-  );
-};
 
 // variant to animate the section in view from the bottom
 const sectionVariants: Variants = {
@@ -152,5 +104,16 @@ const sectionVariants: Variants = {
       type: "spring",
       bounce: 0.3,
     },
+  },
+};
+
+const primaryVariants: Variants = {
+  initial: {
+    opacity: 0,
+    y: 30,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
   },
 };

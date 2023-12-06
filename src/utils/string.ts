@@ -4,6 +4,7 @@ export const titleCase = (str: string) => {
     .split(" ")
     .map(function (word) {
       if (!word[0]) return;
+      if (word.length <= 2) return word.toUpperCase();
       return word.replace(word[0], word[0].toUpperCase());
     })
     .join(" ");
