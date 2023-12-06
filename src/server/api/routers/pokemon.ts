@@ -9,16 +9,16 @@ export const pokemonRouter = createTRPCRouter({
       z
         .object({
           limit: z.number().optional(),
-          page: z.number().optional(),
+          cursor: z.number().optional(),
         })
         .optional(),
     )
     .query(async ({ ctx, input }) => {
       const promises: Promise<Pokemon>[] = [];
-      const { limit = 10, page = 0 } = input ?? {};
+      const { limit = 10, cursor = 0 } = input ?? {};
       const pokemonsList = await ctx.P.getPokemonsList({
         limit,
-        offset: page === 0 ? page : page * limit - limit,
+        offset: cursor === 0 ? cursor : cursor * limit - limit,
       });
       pokemonsList.results.forEach((pokemon) => {
         promises.push(ctx.P.getPokemonByName(pokemon.name));
@@ -29,7 +29,10 @@ export const pokemonRouter = createTRPCRouter({
         types: pokemonDetails[index]?.types,
         image: pokemonDetails[index]!.sprites.other.dream_world.front_default!,
       }));
-      return results;
+      return {
+        results,
+        nextPage: cursor + 1,
+      };
     }),
   getPokemonByName: publicProcedure
     .input(z.string())
