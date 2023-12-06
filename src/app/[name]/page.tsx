@@ -17,7 +17,7 @@ export default async function DetailPage({
   const data = await api.pokemon.getPokemonByName.query(params.name);
   return (
     <>
-      <section className={"container pt-24"}>
+      <section className={"container relative overflow-x-hidden pb-96 pt-24"}>
         <div className="mt-8 flex items-center justify-between">
           <div className="space-y-2">
             <DefaultTitle className="flex-1 flex-grow-0">
@@ -36,7 +36,7 @@ export default async function DetailPage({
         <span className="absolute left-[-8rem] top-[-8rem] z-0 h-64 w-64 rotate-[-18deg] rounded-3xl bg-gradient-to-tl from-gray-100/20 to-transparent" />
         <span
           className={
-            "absolute right-24 top-1/3 h-[20rem] w-[20rem] translate-x-[50%] translate-y-[-50%] text-gray-100/20"
+            "absolute right-24 top-1/2 h-[20rem] w-[20rem] translate-x-[50%] translate-y-[-50%] text-gray-100/20"
           }
         >
           <Pokeball />

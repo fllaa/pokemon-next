@@ -64,7 +64,7 @@ export default function ColouredCard({ data }: Readonly<ColouredCardProps>) {
         "group cursor-pointer overflow-clip rounded-3xl px-4 py-6",
       )}
     >
-      <DefaultTitle className="text-xl font-semibold">
+      <DefaultTitle className="text-start text-xl font-semibold">
         {titleCase(data.name)}
       </DefaultTitle>
       <div className="flex flex-col gap-2 pt-2">

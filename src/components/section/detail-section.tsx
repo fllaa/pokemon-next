@@ -33,13 +33,15 @@ export default function DetailSection({ data }: Readonly<DetailSectionProps>) {
     >
       <div className="mt-[-10rem] flex flex-col items-center">
         {imageSrc && (
-          <Image
-            src={imageSrc}
-            alt={data.name}
-            width={216}
-            height={216}
-            className="rounded-t-[2rem]"
-          />
+          <div className="flex h-[216px] w-[216px] items-end">
+            <Image
+              src={imageSrc}
+              alt={data.name}
+              width={216}
+              height={216}
+              className="rounded-t-[2rem]"
+            />
+          </div>
         )}
         <div className="container py-8">
           <LineTabs tabs={tabs}>
