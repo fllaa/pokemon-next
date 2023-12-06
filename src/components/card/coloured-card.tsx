@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { type Variants, motion } from "framer-motion";
 import { useShallow } from "zustand/react/shallow";
 import clsx from "clsx";
@@ -23,6 +24,13 @@ export interface ColouredCardProps {
 }
 
 export default function ColouredCard({ data }: Readonly<ColouredCardProps>) {
+  const router = useRouter();
+  const { isGrid } = useLayoutStore(
+    useShallow((state) => ({
+      isGrid: state.isGrid,
+    })),
+  );
+
   const bgColors = {
     normal: "bg-[#A8A77A]",
     fighting: "bg-[#C22E28]",
@@ -45,18 +53,12 @@ export default function ColouredCard({ data }: Readonly<ColouredCardProps>) {
     unknown: "bg-[#BDBDBD]",
     shadow: "bg-[#BDBDBD]",
   };
-
-  const { isGrid } = useLayoutStore(
-    useShallow((state) => ({
-      isGrid: state.isGrid,
-    })),
-  );
   return (
-    <motion.div
+    <motion.button
+      onClick={() => router.push(data.name)}
       variants={primaryVariants}
       className={clsx(
         "relative",
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         bgColors[(data.types?.[0]?.type.name as ColorTypes) ?? "normal"],
         "text-white",
         "group cursor-pointer overflow-clip rounded-3xl px-4 py-6",
@@ -98,7 +100,7 @@ export default function ColouredCard({ data }: Readonly<ColouredCardProps>) {
           fill
         />
       </div>
-    </motion.div>
+    </motion.button>
   );
 }
 

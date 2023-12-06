@@ -24,9 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`container font-sans ${inter.variable} overflow-x-hidden`}
-      >
+      <body className={`font-sans ${inter.variable} overflow-x-hidden`}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <SimpleHeader />
           {children}

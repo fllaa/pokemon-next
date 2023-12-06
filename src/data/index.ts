@@ -21,4 +21,27 @@ export const colorTypes = {
   shadow: "#BDBDBD",
 };
 
+export const bgColors = {
+  normal: "bg-[#A8A77A]",
+  fighting: "bg-[#C22E28]",
+  flying: "bg-[#A98FF3]",
+  poison: "bg-[#A33EA1]",
+  ground: "bg-[#E2BF65]",
+  rock: "bg-[#B6A136]",
+  bug: "bg-[#A6B91A]",
+  ghost: "bg-[#735797]",
+  steel: "bg-[#B7B7CE]",
+  fire: "bg-[#EE8130]",
+  water: "bg-[#6390F0]",
+  grass: "bg-[#7AC74C]",
+  electric: "bg-[#F7D02C]",
+  psychic: "bg-[#F95587]",
+  ice: "bg-[#96D9D6]",
+  dragon: "bg-[#6F35FC]",
+  dark: "bg-[#705746]",
+  fairy: "bg-[#D685AD]",
+  unknown: "bg-[#BDBDBD]",
+  shadow: "bg-[#BDBDBD]",
+};
+
 export type ColorTypes = keyof typeof colorTypes;

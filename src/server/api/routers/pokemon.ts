@@ -27,13 +27,19 @@ export const pokemonRouter = createTRPCRouter({
       const results = pokemonsList.results.map((pokemon, index) => ({
         ...pokemon,
         types: pokemonDetails[index]?.types,
-        image: `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemonDetails[index]?.id}.svg`,
+        image: pokemonDetails[index]!.sprites.other.dream_world.front_default!,
       }));
       return results;
     }),
   getPokemonByName: publicProcedure
     .input(z.string())
-    .query(({ ctx, input }) => {
-      return ctx.P.getPokemonByName(input);
+    .query(async ({ ctx, input }) => {
+      const pokemonDetail = await ctx.P.getPokemonByName(input);
+      const pokemonSpecies = await ctx.P.getPokemonSpeciesByName(input);
+      const data = {
+        ...pokemonDetail,
+        speciesData: pokemonSpecies,
+      };
+      return data;
     }),
 });
